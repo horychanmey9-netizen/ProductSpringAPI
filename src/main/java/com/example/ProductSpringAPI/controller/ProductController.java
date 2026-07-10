@@ -1,4 +1,4 @@
 package com.example.ProductSpringAPI.controller;
 
-public class PructCOntroller {
+public class ProductController {
 }
