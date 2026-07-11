@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping
     public List<UserResponse> getData() {
-        return userService.getAll();
+        return userService.getData();
     }
 
     @DeleteMapping("/{id}")
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserResponse updateBook(
+    public UserResponse update(
             @PathVariable Long id,
             @RequestBody UserRequest userRequest) {
 
