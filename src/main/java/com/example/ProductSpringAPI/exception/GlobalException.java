@@ -13,4 +13,10 @@ public class GlobalException {
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
     }
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<?> handleUserNotFound(Exception e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
+    }
 }

@@ -9,7 +9,7 @@ public interface UserService {
 
     UserResponse create(UserRequest userRequest);
 
-    List<UserResponse> getAll();
+    List<UserResponse> getData();
 
     void deleteById(Long id);
 

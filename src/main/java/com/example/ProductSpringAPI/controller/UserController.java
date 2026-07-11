@@ -1,6 +1,7 @@
 package com.example.ProductSpringAPI.controller;
 
 import com.example.ProductSpringAPI.dto.request.UserRequest;
+import com.example.ProductSpringAPI.dto.response.ApiResponse;
 import com.example.ProductSpringAPI.dto.response.UserResponse;
 import com.example.ProductSpringAPI.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,19 +11,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/book")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
-    public UserResponse create(@ModelAttribute UserRequest userRequest) {
+    public UserResponse create(@RequestBody UserRequest userRequest) {
         return userService.create(userRequest);
     }
 
-    @GetMapping("/all")
-    public List<UserResponse> getData() {
-        return userService.getAll();
+    @GetMapping
+    public ApiResponse<List<UserResponse>> getData(){
+        return new ApiResponse<>("get data successfully",200,userService.getData());
     }
 
     @DeleteMapping("/{id}")
@@ -32,9 +33,9 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserResponse updateBook(
+    public UserResponse update(
             @PathVariable Long id,
-            @ModelAttribute UserRequest userRequest) {
+            @RequestBody UserRequest userRequest) {
 
         return userService.update(id, userRequest);
     }
