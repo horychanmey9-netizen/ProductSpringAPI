@@ -1,6 +1,7 @@
 package com.example.ProductSpringAPI.controller;
 
 import com.example.ProductSpringAPI.dto.request.UserRequest;
+import com.example.ProductSpringAPI.dto.response.ApiResponse;
 import com.example.ProductSpringAPI.dto.response.UserResponse;
 import com.example.ProductSpringAPI.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> getData() {
-        return userService.getData();
+    public ApiResponse<List<UserResponse>> getData(){
+        return new ApiResponse<>("get data successfully",200,userService.getData());
     }
 
     @DeleteMapping("/{id}")

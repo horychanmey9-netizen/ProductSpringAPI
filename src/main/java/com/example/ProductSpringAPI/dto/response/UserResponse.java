@@ -1,5 +1,6 @@
 package com.example.ProductSpringAPI.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude; // នាំចូល Library នេះ
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,5 +13,8 @@ public class UserResponse {
     private Integer age;
 
     private LocalDateTime createdAt;
+
+    // បន្ថែម Annotation នេះដើម្បីឱ្យវាលាក់ខ្លួនឯងនៅពេលតម្លៃជា null
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime updatedAt;
 }
