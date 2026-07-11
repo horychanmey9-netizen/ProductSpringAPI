@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userRequest.getName());
         user.setGender(userRequest.getGender());
         user.setAge(userRequest.getAge());
+        user.setEmail(userRequest.getEmail());
         user=userRepository.save(user);
 
         UserResponse userResponse=new UserResponse();
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
         userResponse.setName(user.getName());
         userResponse.setGender(user.getGender());
         userResponse.setAge(user.getAge());
+        userResponse.setEmail(user.getEmail());
 
         userResponse.setCreatedAt(user.getCreatedAt());
 
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
             userResponse.setName(user.getName());
             userResponse.setGender(user.getGender());
             userResponse.setAge(user.getAge());
+            userResponse.setEmail(user.getEmail());
 
             userResponse.setCreatedAt(user.getCreatedAt());
             userResponse.setUpdatedAt(user.getUpdatedAt());
@@ -70,6 +73,8 @@ public class UserServiceImpl implements UserService {
         user.setName(userRequest.getName());
         user.setGender(userRequest.getGender());
         user.setAge(userRequest.getAge());
+        user.setEmail(userRequest.getEmail());
+
         user = userRepository.save(user);
 
         UserResponse response = new UserResponse();
@@ -77,6 +82,7 @@ public class UserServiceImpl implements UserService {
         response.setName(user.getName());
         response.setGender(user.getGender());
         response.setAge(user.getAge());
+        response.setEmail(user.getEmail());
 
         response.setCreatedAt(user.getCreatedAt());
         response.setUpdatedAt(user.getUpdatedAt());
