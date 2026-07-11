@@ -8,4 +8,5 @@ public class ProductRequest {
     private Integer qty;
     private Double price;
     private String image;
+    private Long Userid;
 }

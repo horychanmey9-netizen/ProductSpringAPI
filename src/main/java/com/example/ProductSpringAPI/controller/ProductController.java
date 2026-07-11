@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
     @PostMapping
     public ProductResponse create(@ModelAttribute ProductRequest productRequest, @RequestParam("file") MultipartFile file)throws IOException {
         return productService.create(productRequest,file);
@@ -30,7 +31,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductResponse updateProduct(@PathVariable Long id,@ModelAttribute ProductRequest productRequest,@RequestParam("file") MultipartFile file)throws IOException{
+    public ProductResponse updateProduct(@PathVariable Long id,@ModelAttribute ProductRequest productRequest,@RequestParam(value = "file",required = false) MultipartFile file)throws IOException{
         return productService.updateProduct(id,productRequest, file);
     }
 }
