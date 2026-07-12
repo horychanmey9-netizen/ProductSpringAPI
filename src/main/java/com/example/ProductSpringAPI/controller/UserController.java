@@ -5,6 +5,7 @@ import com.example.ProductSpringAPI.dto.response.ApiResponse;
 import com.example.ProductSpringAPI.dto.response.UserResponse;
 import com.example.ProductSpringAPI.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,26 +18,29 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserResponse create(@RequestBody UserRequest userRequest) {
-        return userService.create(userRequest);
+    @ResponseStatus(HttpStatus.CREATED) // Returns HTTP 201 Created status
+    public ApiResponse<UserResponse> create(@RequestBody UserRequest userRequest) {
+        UserResponse data = userService.create(userRequest);
+        return new ApiResponse<>("User created successfully", 201, data);
     }
 
     @GetMapping
     public ApiResponse<List<UserResponse>> getData(){
-        return new ApiResponse<>("get data successfully",200,userService.getData());
+        return new ApiResponse<>("Get data successfully", 200, userService.getData());
     }
 
     @DeleteMapping("/{id}")
-    public String deleteData(@PathVariable Long id) {
-        userService.deleteById(id);
-        return "Data deleted successfully.";
+    public ApiResponse<UserResponse> deleteData(@PathVariable Long id) {
+        UserResponse deletedData = userService.deleteById(id);
+        return new ApiResponse<>("User deleted successfully", 200, deletedData);
     }
 
     @PutMapping("/{id}")
-    public UserResponse update(
+    public ApiResponse<UserResponse> update(
             @PathVariable Long id,
             @RequestBody UserRequest userRequest) {
 
-        return userService.update(id, userRequest);
+        UserResponse data = userService.update(id, userRequest);
+        return new ApiResponse<>("User updated successfully", 200, data);
     }
 }

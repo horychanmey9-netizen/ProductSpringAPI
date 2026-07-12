@@ -11,7 +11,7 @@ public interface UserService {
 
     List<UserResponse> getData();
 
-    void deleteById(Long id);
+    UserResponse deleteById(Long id);
 
     UserResponse update(Long id, UserRequest userRequest);
 }

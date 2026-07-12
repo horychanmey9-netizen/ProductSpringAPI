@@ -58,10 +58,22 @@ public class UserServiceImpl implements UserService {
         return userResponses;
     }
     @Override
-    public void deleteById(Long id) {
+    public UserResponse deleteById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFound("User not found"));
+                .orElseThrow(() -> new UserNotFound("User not found!!!"));
+
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(user.getId());
+        userResponse.setName(user.getName());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setAge(user.getAge());
+        userResponse.setGender(user.getGender());
+
+        userResponse.setCreatedAt(user.getCreatedAt());
+        userResponse.setUpdatedAt(user.getUpdatedAt());
+
         userRepository.deleteById(id);
+        return userResponse;
     }
 
     @Override

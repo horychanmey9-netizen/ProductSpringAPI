@@ -60,8 +60,12 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQty(product.getQty());
         productResponse.setPrice(product.getPrice());
         productResponse.setImage(product.getImage());
+
         productResponse.setInsertedByUsername(product.getUser().getName());
         productResponse.setInsertedByEmail(product.getUser().getEmail());
+
+        productResponse.setCreatedAt(product.getCreatedAt());
+
         return productResponse;
     }
     @Override
@@ -77,22 +81,45 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setImage(product.getImage());
             productResponse.setInsertedByUsername(product.getUser().getName());
             productResponse.setInsertedByEmail(product.getUser().getEmail());
+
+            productResponse.setCreatedAt(product.getCreatedAt());
+            productResponse.setUpdatedAt(product.getUpdatedAt());
+
             productResponses.add(productResponse);
         }
         return productResponses;
     }
 
     @Override
-    public void deleteProduct(Long id) {
-        Product product=productRepository.findById(id)
-                .orElseThrow(()->new ProductNotFound("Book not found!!!"));
+    public ProductResponse deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFound("Product not found!!!"));
+
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setProName(product.getProName());
+        productResponse.setQty(product.getQty());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setImage(product.getImage());
+
+        productResponse.setInsertedByUsername(product.getUser().getName());
+        productResponse.setInsertedByEmail(product.getUser().getEmail());
+
+        productResponse.setCreatedAt(product.getCreatedAt());
+        productResponse.setUpdatedAt(product.getUpdatedAt());
+
         productRepository.deleteById(id);
+
+        return productResponse;
     }
 
     @Override
     public ProductResponse updateProduct(Long id, ProductRequest productRequest, MultipartFile file) throws IOException {
         Product product=productRepository.findById(id)
-                .orElseThrow(()->new ProductNotFound("Book not found!!!"));
+                .orElseThrow(()->new ProductNotFound("Product not found!!!"));
+
+        User user = userRepository.findById(productRequest.getUserid())
+                .orElseThrow(() -> new UserNotFound("User id not found"));
 
         String fileName= file.getOriginalFilename();
         String fileUrl= UUID.randomUUID().toString()+"_"+fileName;
@@ -113,6 +140,10 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setImage(product.getImage());
         productResponse.setInsertedByUsername(product.getUser().getName());
         productResponse.setInsertedByEmail(product.getUser().getEmail());
+
+        productResponse.setCreatedAt(product.getCreatedAt());
+        productResponse.setUpdatedAt(product.getUpdatedAt());
+
         return productResponse;
     }
 }

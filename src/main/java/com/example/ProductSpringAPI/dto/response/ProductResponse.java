@@ -1,8 +1,11 @@
 package com.example.ProductSpringAPI.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +16,10 @@ public class ProductResponse {
     private Integer qty;
     private Double price;
     private String image;
+
+    private LocalDateTime createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDateTime updatedAt;
 
     private String insertedByUsername;
     private String insertedByEmail;
