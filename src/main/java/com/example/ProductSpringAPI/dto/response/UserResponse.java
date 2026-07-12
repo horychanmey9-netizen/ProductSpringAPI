@@ -12,6 +12,7 @@ public class UserResponse {
     private String name;
     private String gender;
     private Integer age;
+    private String email;
 
     private LocalDateTime createdAt;
 
@@ -19,6 +20,5 @@ public class UserResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime updatedAt;
 
-    private String email;
 //    private List<String> productName;
 }

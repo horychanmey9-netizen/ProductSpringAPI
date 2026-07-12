@@ -61,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setPrice(product.getPrice());
         productResponse.setImage(product.getImage());
 
+        productResponse.setUserId(product.getUser().getId());
         productResponse.setInsertedByUsername(product.getUser().getName());
         productResponse.setInsertedByEmail(product.getUser().getEmail());
 
@@ -79,6 +80,8 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setQty(product.getQty());
             productResponse.setPrice(product.getPrice());
             productResponse.setImage(product.getImage());
+
+            productResponse.setUserId(product.getUser().getId());
             productResponse.setInsertedByUsername(product.getUser().getName());
             productResponse.setInsertedByEmail(product.getUser().getEmail());
 
@@ -102,6 +105,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setPrice(product.getPrice());
         productResponse.setImage(product.getImage());
 
+        productResponse.setUserId(product.getUser().getId());
         productResponse.setInsertedByUsername(product.getUser().getName());
         productResponse.setInsertedByEmail(product.getUser().getEmail());
 
@@ -130,6 +134,7 @@ public class ProductServiceImpl implements ProductService {
         product.setProName(productRequest.getProName());
         product.setQty(productRequest.getQty());
         product.setPrice(productRequest.getPrice());
+        product.setUser(user);
         product=productRepository.save(product);
 
         ProductResponse productResponse=new ProductResponse();
@@ -138,6 +143,8 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQty(product.getQty());
         productResponse.setPrice(product.getPrice());
         productResponse.setImage(product.getImage());
+
+        productResponse.setUserId(product.getUser().getId());
         productResponse.setInsertedByUsername(product.getUser().getName());
         productResponse.setInsertedByEmail(product.getUser().getEmail());
 

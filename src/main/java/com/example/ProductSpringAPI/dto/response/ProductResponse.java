@@ -21,6 +21,7 @@ public class ProductResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime updatedAt;
 
+    private Long userId;
     private String insertedByUsername;
     private String insertedByEmail;
 }
