@@ -30,14 +30,12 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // ពេល record ត្រូវបានបង្កើតដំបូង
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
-    // ពេល record ត្រូវបាន update
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

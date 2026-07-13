@@ -2,6 +2,8 @@ package com.example.ProductSpringAPI.service.serviceImplement;
 
 import com.example.ProductSpringAPI.dto.request.ProductRequest;
 import com.example.ProductSpringAPI.dto.response.ProductResponse;
+import com.example.ProductSpringAPI.dto.response.Productinfo;
+import com.example.ProductSpringAPI.dto.response.UserProductResponse;
 import com.example.ProductSpringAPI.entity.Product;
 import com.example.ProductSpringAPI.entity.User;
 import com.example.ProductSpringAPI.exception.ProductNotFound;
@@ -17,9 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,27 +71,48 @@ public class ProductServiceImpl implements ProductService {
         return productResponse;
     }
     @Override
-    public List<ProductResponse> getData() {
-        List<Product> products=productRepository.findAll();
-        List<ProductResponse> productResponses=new ArrayList<>();
-        for (Product product:products){
-            ProductResponse productResponse =new ProductResponse();
-            productResponse.setId(product.getId());
-            productResponse.setProName(product.getProName());
-            productResponse.setQty(product.getQty());
-            productResponse.setPrice(product.getPrice());
-            productResponse.setImage(product.getImage());
+    public List<UserProductResponse> getData() {
+        List<Product> products = productRepository.findAll();
 
-            productResponse.setUserId(product.getUser().getId());
-            productResponse.setInsertedByUsername(product.getUser().getName());
-            productResponse.setInsertedByEmail(product.getUser().getEmail());
+        // group products by user id, preserving insertion order
+        Map<Long, List<Product>> groupedByUser = products.stream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getUser().getId(),
+                        LinkedHashMap::new,
+                        Collectors.toList()
+                ));
 
-            productResponse.setCreatedAt(product.getCreatedAt());
-            productResponse.setUpdatedAt(product.getUpdatedAt());
+        List<UserProductResponse> result = new ArrayList<>();
 
-            productResponses.add(productResponse);
+        for (List<Product> userProducts : groupedByUser.values()) {
+            User user = userProducts.get(0).getUser();
+
+            UserProductResponse groupResponse = new UserProductResponse();
+            groupResponse.setUserId(user.getId());
+            groupResponse.setInsertedByUsername(user.getName());
+            groupResponse.setInsertedByEmail(user.getEmail());
+            groupResponse.setProduct(
+                    userProducts.stream()
+                            .map(this::mapToProductInfo)
+                            .collect(Collectors.toList())
+            );
+
+            result.add(groupResponse);
         }
-        return productResponses;
+
+        return result;
+    }
+
+    private Productinfo mapToProductInfo(Product product) {
+        Productinfo info = new Productinfo();
+        info.setId(product.getId());
+        info.setProName(product.getProName());
+        info.setQty(product.getQty());
+        info.setPrice(product.getPrice());
+        info.setImage(product.getImage());
+        info.setCreatedAt(product.getCreatedAt());
+        info.setUpdatedAt(product.getUpdatedAt());
+        return info;
     }
 
     @Override

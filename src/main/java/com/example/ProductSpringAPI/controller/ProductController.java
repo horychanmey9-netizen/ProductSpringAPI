@@ -3,6 +3,7 @@ package com.example.ProductSpringAPI.controller;
 import com.example.ProductSpringAPI.dto.request.ProductRequest;
 import com.example.ProductSpringAPI.dto.response.ApiResponse;
 import com.example.ProductSpringAPI.dto.response.ProductResponse;
+import com.example.ProductSpringAPI.dto.response.UserProductResponse;
 import com.example.ProductSpringAPI.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,8 @@ public class ProductController {
         return new ApiResponse<>("Product created successfully", 201, data);
     }
     @GetMapping
-    public ApiResponse<List<ProductResponse>> getData(){
-        return new ApiResponse<>("get data successfully",200,productService.getData());
+    public ApiResponse<List<UserProductResponse>> getData(){
+        return new ApiResponse<>("get data successfully", 200, productService.getData());
     }
     @DeleteMapping("/{id}")
     public ApiResponse<ProductResponse> deleteProduct(@PathVariable Long id) {
